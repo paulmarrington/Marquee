@@ -6,30 +6,26 @@ using System.Linq;
 public class Tickertape : Marquee {
 
   public bool autoStart = false;
+  public int timeBetweenFeeds = 5;
   public TextAsset[] tickertapeAssets;
 
-  private class Feeds : Dictionary<string, Pick> {
+  private class Feeds : Dictionary<string, Pick<string>> {
   }
 
   private static Feeds feeds = new Feeds ();
   private static string[] feedNames;
 
-  private Pick Feed(string name) {
+  private Pick<string> Feed(string name) {
     if (!feeds.ContainsKey(name)) {
-      string text = (Resources.Load(name) as TextAsset).text;
-      if (text == null || text.Length == 0) {
-        return null;
-      }
-      Add(name, new RandomPick (text.Split('\n')));
+      Add(name, new Quotes (name));
     }
     return feeds [name];
   }
 
   IEnumerator TickertapeController() {
     while (autoStart) {
-      yield return After.Realtime.seconds(5);
       yield return Pick();
-      yield return After.Realtime.seconds(5);
+      yield return After.Realtime.seconds(timeBetweenFeeds);
     }
   }
 
@@ -38,7 +34,7 @@ public class Tickertape : Marquee {
     StartCoroutine(TickertapeController());
   }
 
-  public void Add(string name, Pick picker) {
+  public void Add(string name, Pick<string> picker) {
     feeds.Add(name, picker);
     feedNames = feeds.Keys.ToArray();
   }
@@ -53,7 +49,7 @@ public class Tickertape : Marquee {
     if (names.Length == 0) {
       if (Tickertape.feedNames == null) {
         foreach (TextAsset asset in tickertapeAssets) {
-          Add(asset.name, new RandomPick (asset.text.Split('\n')));
+          Add(asset.name, new Quotes (asset.text.Split('\n')));
         }
       }
       names = Tickertape.feedNames;

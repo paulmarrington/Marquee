@@ -1,4 +1,5 @@
 declare -- framework="Unity"
 declare -- packages=""
+declare -- local_packages="Askowl-Lib"
 declare -- quote_count="50"
 declare -- joke_count="200"

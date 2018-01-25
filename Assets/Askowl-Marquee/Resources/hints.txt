@@ -1,0 +1,5 @@
+Hint about how to play the game
+Hint about how not to play the game
+Hint on defeating a monster
+Hint on how to get to the next level
+Hint on why there are hints

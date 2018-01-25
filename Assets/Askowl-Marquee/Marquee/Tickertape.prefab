@@ -76,7 +76,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e919627cb9fb44bd48b1cdc6fcfb5319, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 1
@@ -97,15 +97,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1349312124279782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a76d3e223088b40948d443368315eec3, type: 3}
+  m_Script: {fileID: 11500000, guid: 77b4d06f89638448982e918c0af4e98c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   charactersPerSecond: 10
   repeats: 0
-  tickertapeAssets:
-  - {fileID: 4900000, guid: 13ec2e6c22fb54e51a23a635f16b5e42, type: 3}
-  - {fileID: 4900000, guid: 4d694e2b53aec4c628b7a24f91096f10, type: 3}
-  - {fileID: 4900000, guid: 8ce809d4326df4d05914b5702ce9739e, type: 3}
+  autoStart: 1
+  timeBetweenFeeds: 5
+  tickertapeAssets: []
 --- !u!222 &222059653082789804
 CanvasRenderer:
   m_ObjectHideFlags: 1

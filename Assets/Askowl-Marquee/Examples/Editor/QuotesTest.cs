@@ -7,7 +7,7 @@ using System.Collections;
 public class QuotesTest {
 
   private string process(string rtf) {
-    Quotes quotes = Quotes.Singleton();
+    Quotes quotes = new Quotes ("hints");
     return quotes.RTF(rtf);
   }
 

@@ -3,26 +3,32 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-/*
- * Quotes quotes = Quotes.Singleton();
- * ...
- * string quote = Quotes.Pick();
- */
-public class Quotes : CustomAsset<Quotes> {
-  private Randomiser<string> quotes;
-
+public class Quotes : Pick<string> {
+  
   public TextAsset quoteAsset;
 
-  public override void OnEnable() {
-    base.OnEnable();
+  private Selector<string> selector = new Selector<string> ();
+
+  public Quotes(string quoteResourceName = "quotes") {
     if (quoteAsset == null) {
-      quoteAsset = (Resources.Load("quotes") as TextAsset);
+      quoteAsset = (Resources.Load(quoteResourceName) as TextAsset);
     }
-    quotes = new Randomiser<string> (quoteAsset.text.Split('\n'));
+    init(quoteAsset.text.Split('\n'));
+  }
+
+  public Quotes(string[] listOfQuotes) {
+    init(listOfQuotes);
+  }
+
+  void init(string[]listOfQuotes) {
+    selector.Choices = listOfQuotes;
+    if (listOfQuotes.Length < 100) {
+      selector.Exhaustive();
+    }
   }
 
   public string Pick() {
-    return quotes.Pick();
+    return RTF(selector.Pick());
   }
 
   public string RTF(string quote) {
@@ -30,9 +36,5 @@ public class Quotes : CustomAsset<Quotes> {
       string.Format("<b>\"</b><i>{0}</i><b>\"</b>      <color=grey>{1}</color>",
         m.Groups [1].Value, m.Groups.Count > 1 ? m.Groups [2].Value : "")
     );
-  }
-
-  public string PickRTF() {
-    return RTF(Pick());
   }
 }
