@@ -22,6 +22,11 @@ public class Marquee : MonoBehaviour {
     scroller.step.y = 0;
   }
 
+  public void OnDisable() {
+    scroller.Reset();
+    repeat = 0;
+  }
+
   private IEnumerator displaying(string text) {
     yield return Hide();
     if (text != null && text.Length > 0) {
@@ -42,7 +47,7 @@ public class Marquee : MonoBehaviour {
 
       do {
         yield return null;
-      } while (scroller.Step(pixelsPerSecond * Time.fixedUnscaledDeltaTime) || (--repeat != 0));
+      } while (scroller.Step(pixelsPerSecond * Time.fixedUnscaledDeltaTime) || (--repeat > 0));
     }
   }
 

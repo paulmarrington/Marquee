@@ -5,7 +5,7 @@ using System.Linq;
 
 public class Tickertape : Marquee {
 
-  public bool autoStart = false;
+  public bool autoStart = true;
   public int timeBetweenFeeds = 5;
   public TextAsset[] tickertapeAssets;
 
@@ -13,17 +13,14 @@ public class Tickertape : Marquee {
   }
 
   private static Feeds feeds = new Feeds ();
-  private static string[] feedNames;
 
-  private Pick<string> Feed(string name) {
-    if (!feeds.ContainsKey(name)) {
-      Add(name, new Quotes (name));
-    }
-    return feeds [name];
-  }
+  private Selector<Pick<string>> selector = new Selector<Pick<string>> ();
+
+  private bool running = false;
 
   IEnumerator TickertapeController() {
-    while (autoStart) {
+    running = true;
+    while (running) {
       yield return Pick();
       yield return After.Realtime.seconds(timeBetweenFeeds);
     }
@@ -31,29 +28,50 @@ public class Tickertape : Marquee {
 
   public new void Start() {
     base.Start();
-    StartCoroutine(TickertapeController());
+    Add(tickertapeAssets);
+    if (autoStart) {
+      Show();
+    }
+  }
+
+  public void OnEnable() {
+    if (running) {
+      StartCoroutine(TickertapeController());
+    }
+  }
+
+  public void Show() {
+    if (!running) {
+      StartCoroutine(TickertapeController());
+    }
+  }
+
+  public void Stop() {
+    running = false;
   }
 
   public void Add(string name, Pick<string> picker) {
-    feeds.Add(name, picker);
-    feedNames = feeds.Keys.ToArray();
-  }
-
-  public Coroutine Pick(string name) {
-    return Show(Feed(name).Pick());
-  }
-
-  private System.Random random = new System.Random ();
-
-  public Coroutine Pick(params string[] names) {
-    if (names.Length == 0) {
-      if (Tickertape.feedNames == null) {
-        foreach (TextAsset asset in tickertapeAssets) {
-          Add(asset.name, new Quotes (asset.text.Split('\n')));
-        }
-      }
-      names = Tickertape.feedNames;
+    if (!feeds.ContainsKey(name)) {
+      feeds.Add(name, picker);
+      selector.Choices = feeds.Values.ToArray();
+      selector.Exhaustive();
     }
-    return Pick(names [random.Next(0, names.Length)]);
+  }
+
+  public void Add(params TextAsset[] textAssets) {
+    foreach (TextAsset asset in tickertapeAssets) {
+      Add(asset.name, new Quotes (asset.text.Split('\n')));
+    }
+  }
+
+  public void Add(params string[] textAssetNames) {
+    foreach (string name in textAssetNames) {
+      TextAsset asset = Resources.Load<TextAsset>(name);
+      Add(name, new Quotes (asset.text.Split('\n')));
+    }
+  }
+
+  public Coroutine Pick() {
+    return Show(selector.Pick().Pick());
   }
 }

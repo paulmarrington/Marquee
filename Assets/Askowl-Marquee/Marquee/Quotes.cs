@@ -20,7 +20,7 @@ public class Quotes : Pick<string> {
     init(listOfQuotes);
   }
 
-  void init(string[]listOfQuotes) {
+  void init(string[] listOfQuotes) {
     selector.Choices = listOfQuotes;
     if (listOfQuotes.Length < 100) {
       selector.Exhaustive();
