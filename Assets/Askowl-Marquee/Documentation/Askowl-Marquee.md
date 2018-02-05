@@ -45,21 +45,6 @@ The example also shows a use for `Hide()`. It will wait for the current text to 
   yield return marquee.Hide();
 ```
 
-## Quotes
-`Quotes` is a C# class that if given a list of lines or a `TextAsset` will return a line randomly using the `Pick` interface. A quote is formatted as a ***body of the quote (attribution)*** where the attribution is optional. RTF is acceptable in the quote.
-
-```C#
-Quotes QuotesA = new Quotes();
-Quotes QuotesB = new Quotes("name-of-a-TextAsset");
-Quotes QuotesC = new Quotes(new string[]{
-    "The trouble with having an open mind, of course, is that people will insist on coming along and trying to put things in it (Terry Pratchett)",
-    "Never say, 'oops'. Always say, 'Ah, interesting'.",
-    "Hints on how to play <b>the game</b> are rarely attributed."
-    "Success does not consist in never making mistakes but in never making the same one a second time. (George Bernard Shaw)");
-
-string aQuote = QuotesC.Pick();
-```
-
 ## Tickertape
 The `Tickertape` prefab is in Assets/Askowl-Marquee/Marquee.
 Drag it to your scene canvas. Add references to one or more text assets where each file includes single-line quotes, hints or messages. Check the `RectTransfor` to make sure the Left, Right, Pos Z, Top and Bottom fields are all 0.
