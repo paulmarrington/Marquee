@@ -1,5 +1,6 @@
 declare -- framework="Unity"
-declare -- packages=""
-declare -- local_packages="Askowl-Lib"
+declare -- packages="Asset:Store-5.x/Unity:Technologies/Unity:EssentialsBeta:Content/TextMesh:Pro.unitypackage"
+declare -- local_packages="Askowl/UI Askowl/Assets"
 declare -- quote_count="50"
+declare -- fact_count="100"
 declare -- joke_count="200"

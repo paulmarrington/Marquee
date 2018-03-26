@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Askowl;
 using UnityEngine;
 
-public class TickerTapeExamples : MonoBehaviour {
-  public Tickertape tickertape;
+public sealed class TickerTapeExamples : MonoBehaviour {
+  [SerializeField] private Tickertape tickertape;
 
   public void ShowButton() {
     tickertape.Show();
