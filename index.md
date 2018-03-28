@@ -1,5 +1,5 @@
 ---
 redirect_to:
-  - /Assets/Askowl-Marquee/Documentation/Askowl-Marquee
+  - /Assets/Askowl/Marquee/Documentation/Askowl-Marquee
 ---
 
