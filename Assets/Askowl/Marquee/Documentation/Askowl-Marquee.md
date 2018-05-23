@@ -19,13 +19,13 @@ At the highest level, `Tickertape` will take one or more text files and display 
 A `Marquee` instance has one task - to scroll text from right to left across a viewport. It is designed to be attached to a `GameObject` within a canvas.
 
 * Scene - that is to display the Marquee
-  ** Canvas - to hold 2D objects
-  *** GameObject - for the Marquee
-  **** Rect Transform - sized as the viewport
-  **** Rect Mask 2D - so Marquee text does not display outside the viewport
-  **** Marquee Instance - or a class that inherits from it
-  ***** Characters per second (defaults to 20)
-  ***** Repeats (defaults to 0)
+  * Canvas - to hold 2D objects
+  * GameObject - for the Marquee
+    * Rect Transform - sized as the viewport
+    * Rect Mask 2D - so Marquee text does not display outside the viewport
+    * Marquee Instance - or a class that inherits from it
+    * Characters per second (defaults to 20)
+    * Repeats (defaults to 0)
 
 Call `Marquee.Show(text)` and the text will be displayed next. If message queue up there is no guarantee of order that they will appear.
 
