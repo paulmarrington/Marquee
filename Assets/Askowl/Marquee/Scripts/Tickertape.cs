@@ -17,7 +17,11 @@ namespace Askowl {
     private List<Quotes> allQuotes;
     private bool         running;
 
-    private void Awake() { allQuotes = new List<Quotes>(quotes); }
+    private void Awake() {
+      allQuotes = new List<Quotes>();
+
+      foreach (Quotes quote in quotes) Add(quote);
+    }
 
     private IEnumerator TickertapeController() {
       running = true;
@@ -34,7 +38,10 @@ namespace Askowl {
     }
 
     private void OnEnable() {
-      if (running) Show(); // restart
+      if (running) { // restart
+        Stop();
+        Show();
+      }
     }
 
     public void Show() {
@@ -43,9 +50,21 @@ namespace Askowl {
 
     public void Stop() { running = false; }
 
-    public void Add(Quotes moreQuotes) { allQuotes.Add(moreQuotes); }
+    public void Add(Quotes moreQuotes) {
+      if (!loadedQuotes.Contains(moreQuotes.name)) {
+        loadedQuotes.Add(moreQuotes.name);
+        allQuotes.Add(moreQuotes);
+      }
+    }
 
-    public void Add(TextAsset moreQuotes) { allQuotes.Add(Quotes.New.Add(moreQuotes)); }
+    HashSet<object> loadedQuotes = new HashSet<object>();
+
+    public void Add(TextAsset moreQuotes) {
+      if (!loadedQuotes.Contains(moreQuotes)) {
+        loadedQuotes.Add(moreQuotes);
+        allQuotes.Add(Quotes.New.Add(moreQuotes));
+      }
+    }
 
     public Coroutine Pick() {
       Quotes quoter = allQuotes[Random.Range(0, allQuotes.Count)];

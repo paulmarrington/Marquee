@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Name: Quotes
   m_EditorClassIdentifier: 
   Description: ' '
-  seed: []
+  seed:
+  - Direct seed 1 from the inspector
+  - Direct seed 2 from the inspector
   members: []
   readWrite: 1
   persistent: 0
   cycle: 0
   exhaustiveBelow: 0
-  quoteFiles: []
+  quoteFiles:
+  - {fileID: 4900000, guid: 57420b10043f14b2696de3e8318161e8, type: 3}
+  - {fileID: 4900000, guid: d09db8688529643a5adc3f1cc9bdef10, type: 3}

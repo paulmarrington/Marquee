@@ -15,13 +15,9 @@ public sealed class TickerTapeExamples : MonoBehaviour {
 
   public void OnEnableButton() { tickertape.gameObject.SetActive(true); }
 
-  public void AddTextAssetButton() {
-    tickertape.Add(moreQuotes);
-  }
+  public void AddTextAssetButton() { tickertape.Add(moreQuotes); }
 
-  public void AddQuotesButton() {
-    tickertape.Add(andMoreQuotes);
-  }
+  public void AddQuotesButton() { tickertape.Add(andMoreQuotes); }
 
   public void ShowSpecialButton() { tickertape.Show("A special message injected into the stream"); }
 
