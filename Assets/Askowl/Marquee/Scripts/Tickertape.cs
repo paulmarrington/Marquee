@@ -15,7 +15,7 @@ namespace Askowl {
     [SerializeField] private Quotes[] quotes;
 
     private List<Quotes> allQuotes;
-    private bool running;
+    private bool         running;
 
     private void Awake() { allQuotes = new List<Quotes>(quotes); }
 
@@ -42,6 +42,10 @@ namespace Askowl {
     }
 
     public void Stop() { running = false; }
+
+    public void Add(Quotes moreQuotes) { allQuotes.Add(moreQuotes); }
+
+    public void Add(TextAsset moreQuotes) { allQuotes.Add(Quotes.New.Add(moreQuotes)); }
 
     public Coroutine Pick() {
       Quotes quoter = allQuotes[Random.Range(0, allQuotes.Count)];

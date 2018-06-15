@@ -3,5 +3,7 @@
 
 * Plan future work
 
-## Release x.x (month 201x)
+## Release 2018.06
+
+* [ ] Document New, Add(TextAsset) and Add(Quotes)
 
