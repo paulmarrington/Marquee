@@ -12,7 +12,7 @@
     private Text     content;
 
     // Use this for initialization
-    public void Start() {
+    protected internal virtual void Start() {
       RectTransform viewport = GetComponent<RectTransform>();
       content = GetComponentInChildren<Text>();
 
@@ -21,7 +21,7 @@
       };
     }
 
-    public void OnDisable() {
+    protected internal virtual void OnDisable() {
       scroller.Reset();
       repeat = 0;
     }
