@@ -20,22 +20,18 @@ namespace Askowl {
       yield return PushButton(buttonName);
     }
 
-    private IEnumerator TextDisplaying(float afterSeconds = 0.3f) {
-      yield return IsDisplaying("Tickertape/Content", afterSeconds);
-    }
-
-    private IEnumerator TextNotDisplaying(float afterSeconds = 5) {
-      yield return IsNotDisplaying("Tickertape/Content", afterSeconds);
+    private IEnumerator TextDisplaying(bool visible = true) {
+      yield return IsDisplayingInUI("Canvas/Tickertape/Content", visible);
     }
 
     private IEnumerator PressAndDisplay(string buttonName, float afterSeconds = 0.3f) {
       yield return Press(buttonName);
-      yield return TextDisplaying(afterSeconds);
+      yield return TextDisplaying();
     }
 
     private IEnumerator PressAndNotDisplay(string buttonName, float afterSeconds = 2) {
       yield return Press(buttonName);
-      yield return TextNotDisplaying(afterSeconds);
+      yield return TextDisplaying(false);
     }
 
     [UnityTest]
@@ -45,10 +41,7 @@ namespace Askowl {
     }
 
     [UnityTest]
-    public IEnumerator Stop() {
-      yield return PressAndDisplay("Enable");
-      yield return PressAndNotDisplay("Stop");
-    }
+    public IEnumerator Stop() { yield return PressAndNotDisplay("Stop", 5); }
 
     [UnityTest]
     public IEnumerator Enable() {
@@ -59,7 +52,8 @@ namespace Askowl {
     [UnityTest]
     public IEnumerator Disable() {
       yield return Press("Show");
-      yield return PressAndNotDisplay("Disable", 0.1f);
+      yield return PressAndNotDisplay("Disable", 0.4f);
+      yield return PressAndDisplay("Enable");
     }
 
     [UnityTest]

@@ -647,7 +647,7 @@ Prefab:
     - target: {fileID: 224300545293309722, guid: 2a4b3fd7a93064455928a2778ac9949b,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -506
       objectReference: {fileID: 0}
     - target: {fileID: 224300545293309722, guid: 2a4b3fd7a93064455928a2778ac9949b,
         type: 2}
@@ -657,7 +657,7 @@ Prefab:
     - target: {fileID: 224300545293309722, guid: 2a4b3fd7a93064455928a2778ac9949b,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -1012
       objectReference: {fileID: 0}
     - target: {fileID: 224300545293309722, guid: 2a4b3fd7a93064455928a2778ac9949b,
         type: 2}
@@ -699,6 +699,16 @@ Prefab:
         type: 2}
       propertyPath: charactersPerSecond
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 224849232139764340, guid: 2a4b3fd7a93064455928a2778ac9949b,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224849232139764340, guid: 2a4b3fd7a93064455928a2778ac9949b,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2a4b3fd7a93064455928a2778ac9949b, type: 2}
@@ -1983,7 +1993,7 @@ GameObject:
   - component: {fileID: 1788180798}
   - component: {fileID: 1788180797}
   m_Layer: 5
-  m_Name: 'Stop '
+  m_Name: Stop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
