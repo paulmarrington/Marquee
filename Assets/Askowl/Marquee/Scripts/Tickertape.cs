@@ -17,6 +17,8 @@ namespace Askowl {
     private List<Quotes> allQuotes;
     private bool         running;
 
+    public int[] Counts { get { return allQuotes.ConvertAll<int>(q => q.Count).ToArray(); } }
+
     private void Awake() {
       allQuotes = new List<Quotes>();
 

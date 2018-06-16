@@ -7,6 +7,11 @@
     [SerializeField] private int charactersPerSecond = 20;
     [SerializeField] private int repeats             = 0;
 
+    public int CharactersPerSecond {
+      get { return charactersPerSecond; }
+      set { charactersPerSecond = value; }
+    }
+
     private Scroller scroller;
     private int      repeat;
     private Text     content;

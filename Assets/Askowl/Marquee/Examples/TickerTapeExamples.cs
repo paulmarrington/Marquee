@@ -1,43 +1,66 @@
-﻿using Askowl;
-using CustomAsset;
-using UnityEngine;
+﻿using System;
+using System.Linq;
 
-public sealed class TickerTapeExamples : MonoBehaviour {
-  [SerializeField] private Tickertape tickertape;
-  [SerializeField] private TextAsset  moreQuotes;
-  [SerializeField] private Quotes     andMoreQuotes;
+#if Marquee && UNITY_EDITOR
+namespace Askowl {
+  using Askowl;
+  using CustomAsset;
+  using UnityEngine;
 
-  public void ShowButton() { tickertape.Show(); }
+  public sealed class TickerTapeExamples : MonoBehaviour {
+    [SerializeField] private Tickertape tickertape;
+    [SerializeField] private TextAsset  moreQuotes;
+    [SerializeField] private Quotes     andMoreQuotes;
 
-  public void StopButton() { tickertape.Stop(); }
+    public void ShowButton() { tickertape.Show(); }
 
-  public void OnDisableButton() { tickertape.gameObject.SetActive(false); }
+    public void StopButton() { tickertape.Stop(); }
 
-  public void OnEnableButton() { tickertape.gameObject.SetActive(true); }
+    public void OnDisableButton() { tickertape.gameObject.SetActive(false); }
 
-  public void AddTextAssetButton() { tickertape.Add(moreQuotes); }
+    public void OnEnableButton() { tickertape.gameObject.SetActive(true); }
 
-  public void AddQuotesButton() { tickertape.Add(andMoreQuotes); }
+    private void CheckCounts(Action adder) {
+      string before = Csv<int>.Instance(tickertape.Counts).ToString();
+      Debug.LogFormat("Before: {0}", before);
 
-  public void ShowSpecialButton() { tickertape.Show("A special message injected into the stream"); }
+      adder();
+      string after = Csv<int>.Instance(tickertape.Counts).ToString();
 
-  public void FormattingButton() {
-    string input  = "body (attribution text)";
-    string output = Quotes.RTF(input);
-
-    if (output.Contains(">attribution text<")) {
-      Debug.Log(output);
-    } else {
-      Debug.LogError(output);
+      if (before == after) {
+        Debug.LogErrorFormat("No change in quotes");
+      } else {
+        Debug.LogFormat("After: {0}", after);
+      }
     }
 
-    input  = "body -- attribution";
-    output = Quotes.RTF(input);
+    public void AddTextAssetButton() { CheckCounts(() => tickertape.Add(moreQuotes)); }
 
-    if (input == output) {
-      Debug.Log(output);
-    } else {
-      Debug.LogError(output);
+    public void AddQuotesButton() { CheckCounts(() => tickertape.Add(andMoreQuotes)); }
+
+    public void ShowSpecialButton() {
+      tickertape.Show("A special message injected into the stream");
+    }
+
+    public void FormattingButton() {
+      string input  = "body (attribution text)";
+      string output = Quotes.RTF(input);
+
+      if (output.Contains(">attribution text<")) {
+        Debug.Log(output);
+      } else {
+        Debug.LogError(output);
+      }
+
+      input  = "body -- attribution";
+      output = Quotes.RTF(input);
+
+      if (input == output) {
+        Debug.Log(output);
+      } else {
+        Debug.LogError(output);
+      }
     }
   }
 }
+#endif

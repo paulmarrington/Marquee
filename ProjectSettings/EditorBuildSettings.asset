@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Askowl/Marquee/Examples/TickerTape Example.unity
+    guid: 064d4d565a2094ea5b7c3be7d12e737f
+  m_configObjects: {}
