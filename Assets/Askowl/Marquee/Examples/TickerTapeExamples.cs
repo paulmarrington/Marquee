@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Linq;
+using CustomAsset.Constant;
 
 #if Marquee && UNITY_EDITOR
 namespace Askowl {
-  using Askowl;
-  using CustomAsset;
   using UnityEngine;
 
   public sealed class TickerTapeExamples : MonoBehaviour {
     [SerializeField] private Tickertape tickertape;
-    [SerializeField] private TextAsset  moreQuotes;
-    [SerializeField] private Quotes     andMoreQuotes;
+
+    [SerializeField] private Quotes andMoreQuotes;
 
     public void ShowButton() { tickertape.Show(); }
 
@@ -34,9 +32,9 @@ namespace Askowl {
       }
     }
 
-    public void AddTextAssetButton() { CheckCounts(() => tickertape.Add(moreQuotes)); }
+    public void AddQuotesButton()   { CheckCounts(() => tickertape.Add(andMoreQuotes)); }
 
-    public void AddQuotesButton() { CheckCounts(() => tickertape.Add(andMoreQuotes)); }
+    public void ClearQuotesButton() { CheckCounts(() => tickertape.Clear()); }
 
     public void ShowSpecialButton() {
       tickertape.Show("A special message injected into the stream");
@@ -44,7 +42,7 @@ namespace Askowl {
 
     public void FormattingButton() {
       string input  = "body (attribution text)";
-      string output = Quotes.RTF(input);
+      string output = Quotes.Rtf(input);
 
       if (output.Contains(">attribution text<")) {
         Debug.Log(output);
@@ -53,7 +51,7 @@ namespace Askowl {
       }
 
       input  = "body -- attribution";
-      output = Quotes.RTF(input);
+      output = Quotes.Rtf(input);
 
       if (input == output) {
         Debug.Log(output);

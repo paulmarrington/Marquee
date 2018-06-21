@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 32
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -11,14 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe7f5820b64514b2080fc22e130e8024, type: 3}
   m_Name: More Quotes
   m_EditorClassIdentifier: 
-  Description: ' '
-  seed:
-  - A few more quotes for good luck
-  - and a few good men to eath them
-  - and elephants to step on them
-  members: []
-  readWrite: 1
-  persistent: 0
-  cycle: 0
-  exhaustiveBelow: 99
-  quoteFiles: []
+  description: 
+  value:
+    elements: []
+    Cycle: 0
+    ExhaustiveBelow: 0
+    quoteFiles:
+    - {fileID: 4900000, guid: eb89d5cee800d4ac09cf76403ffeff3b, type: 3}
+    - {fileID: 4900000, guid: d09db8688529643a5adc3f1cc9bdef10, type: 3}

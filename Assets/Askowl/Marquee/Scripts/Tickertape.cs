@@ -1,12 +1,10 @@
 ﻿// Copyright 2018 (C) paul@marrington.net http://www.askowl.net/unity-packages
 
-using CustomAsset;
+using CustomAsset.Constant;
 
 namespace Askowl {
   using System.Collections;
   using System.Collections.Generic;
-  using System.Linq;
-  using JetBrains.Annotations;
   using UnityEngine;
 
   public sealed class Tickertape : Marquee {
@@ -52,23 +50,25 @@ namespace Askowl {
 
     public void Stop() { running = false; }
 
-    public void Add(Quotes moreQuotes) {
-      if (!loadedQuotes.Contains(moreQuotes.name)) {
-        loadedQuotes.Add(moreQuotes.name);
-        allQuotes.Add(moreQuotes);
-      }
+    public Tickertape Add(Quotes moreQuotes) {
+      if ((moreQuotes.Count == 0) || loadedQuotes.Contains(moreQuotes.name)) return this;
+
+      loadedQuotes.Add(moreQuotes.name);
+      allQuotes.Add(moreQuotes);
+      return this;
+    }
+
+    public Tickertape Clear() {
+      loadedQuotes.Clear();
+      allQuotes.Clear();
+      return this;
     }
 
     HashSet<object> loadedQuotes = new HashSet<object>();
 
-    public void Add(TextAsset moreQuotes) {
-      if (!loadedQuotes.Contains(moreQuotes)) {
-        loadedQuotes.Add(moreQuotes);
-        allQuotes.Add(Quotes.New.Add(moreQuotes));
-      }
-    }
-
     public Coroutine Pick() {
+      if (allQuotes.Count == 0) return null;
+
       Quotes quoter = allQuotes[Random.Range(0, allQuotes.Count)];
       return Show(quoter.Pick());
     }

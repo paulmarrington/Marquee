@@ -437,8 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tickertape: {fileID: 1529550216}
-  moreQuotes: {fileID: 4900000, guid: eb89d5cee800d4ac09cf76403ffeff3b, type: 3}
-  andMoreQuotes: {fileID: 11400000, guid: 32f55f7aa689e4c21aa3626d9d3095dd, type: 2}
+  andMoreQuotes: {fileID: 11400000, guid: f9d71c6289e1c4faa9fa0d29278a327e, type: 2}
 --- !u!1 &788217772
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +692,7 @@ Prefab:
         type: 2}
       propertyPath: quotes.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 1962ddebc39d24eaeba4838b86445894,
+      objectReference: {fileID: 11400000, guid: 2416969b9c7414525be18c89baea7dd6,
         type: 2}
     - target: {fileID: 114873594799033926, guid: 2a4b3fd7a93064455928a2778ac9949b,
         type: 2}
@@ -708,6 +707,17 @@ Prefab:
     - target: {fileID: 224849232139764340, guid: 2a4b3fd7a93064455928a2778ac9949b,
         type: 2}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873594799033926, guid: 2a4b3fd7a93064455928a2778ac9949b,
+        type: 2}
+      propertyPath: quotes.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: f9d71c6289e1c4faa9fa0d29278a327e,
+        type: 2}
+    - target: {fileID: 114873594799033926, guid: 2a4b3fd7a93064455928a2778ac9949b,
+        type: 2}
+      propertyPath: secondsBetweenFeeds
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -902,7 +912,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Add Text Quotes
+  m_Text: Clear all quotes
 --- !u!222 &1144956494
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1874,7 +1884,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 644476474}
-        m_MethodName: AddTextAssetButton
+        m_MethodName: ClearQuotesButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
