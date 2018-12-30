@@ -1,29 +1,31 @@
 ﻿using System;
 using CustomAsset.Constant;
 
+// ReSharper disable MissingXmlDoc
+
 #if Marquee && UNITY_EDITOR
 namespace Askowl {
   using UnityEngine;
 
   public sealed class TickerTapeExamples : MonoBehaviour {
-    [SerializeField] private Tickertape tickertape;
+    [SerializeField] private Tickertape tickertape = default;
 
-    [SerializeField] private Quotes andMoreQuotes;
+    [SerializeField] private Quotes andMoreQuotes = default;
 
-    public void ShowButton() { tickertape.Show(); }
+    public void ShowButton() => tickertape.Show();
 
-    public void StopButton() { tickertape.Stop(); }
+    public void StopButton() => tickertape.Stop();
 
-    public void OnDisableButton() { tickertape.gameObject.SetActive(false); }
+    public void OnDisableButton() => tickertape.gameObject.SetActive(false);
 
-    public void OnEnableButton() { tickertape.gameObject.SetActive(true); }
+    public void OnEnableButton() => tickertape.gameObject.SetActive(true);
 
     private void CheckCounts(Action adder) {
-      string before = Csv<int>.Instance(tickertape.Counts).ToString();
+      string before = Csv.ToString(tickertape.Counts);
       Debug.LogFormat("Before: {0}", before);
 
       adder();
-      string after = Csv<int>.Instance(tickertape.Counts).ToString();
+      string after = Csv.ToString(tickertape.Counts);
 
       if (before == after) {
         Debug.LogErrorFormat("No change in quotes");
@@ -32,13 +34,11 @@ namespace Askowl {
       }
     }
 
-    public void AddQuotesButton()   { CheckCounts(() => tickertape.Add(andMoreQuotes)); }
+    public void AddQuotesButton() => CheckCounts(() => tickertape.Add(andMoreQuotes));
 
-    public void ClearQuotesButton() { CheckCounts(() => tickertape.Clear()); }
+    public void ClearQuotesButton() => CheckCounts(() => tickertape.Clear());
 
-    public void ShowSpecialButton() {
-      tickertape.Show("A special message injected into the stream");
-    }
+    public void ShowSpecialButton() => tickertape.Show("A special message injected into the stream");
 
     public void FormattingButton() {
       string input  = "body (attribution text)";

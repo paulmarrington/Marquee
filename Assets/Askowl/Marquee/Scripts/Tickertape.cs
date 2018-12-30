@@ -1,21 +1,20 @@
 ﻿// Copyright 2018 (C) paul@marrington.net http://www.askowl.net/unity-packages
 
+using System.Collections.Generic;
 using CustomAsset.Constant;
+using UnityEngine;
 
 namespace Askowl {
-  using System.Collections;
-  using System.Collections.Generic;
-  using UnityEngine;
-
+  /// <a href=""></a> //#TBD#//
   public sealed class Tickertape : Marquee {
     [SerializeField] private bool     autoStart           = true;
     [SerializeField] private float    secondsBetweenFeeds = 5;
-    [SerializeField] private Quotes[] quotes;
+    [SerializeField] private Quotes[] quotes              = default;
 
     private List<Quotes> allQuotes;
-    private bool         running;
 
-    public int[] Counts { get { return allQuotes.ConvertAll<int>(q => q.Count).ToArray(); } }
+    /// <a href=""></a> //#TBD#//
+    public int[] Counts => allQuotes.ConvertAll(q => q.Count).ToArray();
 
     private void Awake() {
       allQuotes = new List<Quotes>();
@@ -23,54 +22,45 @@ namespace Askowl {
       foreach (Quotes quote in quotes) Add(quote);
     }
 
-    private IEnumerator TickertapeController() {
-      running = true;
-
-      while (running) {
-        yield return Pick();
-        yield return new WaitForSecondsRealtime(secondsBetweenFeeds);
-      }
-    }
-
+    /// <a href=""></a> //#TBD#//
     protected internal override void Start() {
       base.Start();
       if (autoStart) Show();
     }
 
-    private void OnEnable() {
-      if (running) { // restart
-        Stop();
-        Show();
-      }
-    }
+    private void OnEnable() => Show();
 
+    /// <a href=""></a> //#TBD#//
     public void Show() {
-      if (!running) StartCoroutine(TickertapeController());
+      Stop();
+      void pick(Fiber fiber) {
+        if (allQuotes.Count != 0) Show(allQuotes[Random.Range(0, allQuotes.Count)].Pick());
+      }
+      showFiber = Fiber.Start.Begin.Do(pick).WaitFor(secondsBetweenFeeds).Again;
     }
+    private Fiber showFiber;
 
-    public void Stop() { running = false; }
+    /// <a href=""></a> //#TBD#//
+    public void Stop() => showFiber.Exit();
 
+    /// <a href=""></a> //#TBD#//
+    // ReSharper disable once UnusedMethodReturnValue.Global
     public Tickertape Add(Quotes moreQuotes) {
-      if ((moreQuotes.Count == 0) || loadedQuotes.Contains(moreQuotes.name)) return this;
+      if ((moreQuotes.Count == 0) || loadedQuotes[moreQuotes.name].Found) return this;
 
       loadedQuotes.Add(moreQuotes.name);
       allQuotes.Add(moreQuotes);
       return this;
     }
 
+    /// <a href=""></a> //#TBD#//
+    // ReSharper disable once UnusedMethodReturnValue.Global
     public Tickertape Clear() {
       loadedQuotes.Clear();
       allQuotes.Clear();
       return this;
     }
 
-    HashSet<object> loadedQuotes = new HashSet<object>();
-
-    public Coroutine Pick() {
-      if (allQuotes.Count == 0) return null;
-
-      Quotes quoter = allQuotes[Random.Range(0, allQuotes.Count)];
-      return Show(quoter.Pick());
-    }
+    private readonly Map loadedQuotes = new Map();
   }
 }

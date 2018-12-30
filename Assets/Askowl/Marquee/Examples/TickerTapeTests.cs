@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
+// ReSharper disable MissingXmlDoc
+
 namespace Askowl {
   public class TickerTapeTests : PlayModeTests {
     private IEnumerator Setup() {
@@ -21,49 +23,42 @@ namespace Askowl {
     }
 
     private IEnumerator TextDisplaying(bool visible = true) {
-      yield return IsDisplayingInUI("Canvas/Tickertape/Content", visible);
+      yield return IsDisplayingInUi("Canvas/Tickertape/Content", visible);
     }
 
-    private IEnumerator PressAndDisplay(string buttonName, float afterSeconds = 0.3f) {
+    private IEnumerator PressAndDisplay(string buttonName) {
       yield return Press(buttonName);
       yield return TextDisplaying();
     }
 
-    private IEnumerator PressAndNotDisplay(string buttonName, float afterSeconds = 2) {
+    private IEnumerator PressAndNotDisplay(string buttonName) {
       yield return Press(buttonName);
       yield return TextDisplaying(false);
     }
 
-    [UnityTest]
-    public IEnumerator Show() {
+    [UnityTest] public IEnumerator Show() {
       yield return PressAndDisplay("Enable");
       yield return PressAndDisplay("Show");
     }
 
-    [UnityTest]
-    public IEnumerator Stop() { yield return PressAndNotDisplay("Stop", 5); }
+    [UnityTest] public IEnumerator Stop() { yield return PressAndNotDisplay("Stop"); }
 
-    [UnityTest]
-    public IEnumerator Enable() {
+    [UnityTest] public IEnumerator Enable() {
       yield return Press("Show");
       yield return PressAndDisplay("Enable");
     }
 
-    [UnityTest]
-    public IEnumerator Disable() {
+    [UnityTest] public IEnumerator Disable() {
       yield return Press("Show");
-      yield return PressAndNotDisplay("Disable", 0.4f);
+      yield return PressAndNotDisplay("Disable");
       yield return PressAndDisplay("Enable");
     }
 
-    [UnityTest]
-    public IEnumerator AddTextQuotes() { yield return Press("Add Text Quotes"); }
+    [UnityTest] public IEnumerator AddTextQuotes() { yield return Press("Add Text Quotes"); }
 
-    [UnityTest]
-    public IEnumerator AddQuotesAssets() { yield return Press("Add Quotes Asset"); }
+    [UnityTest] public IEnumerator AddQuotesAssets() { yield return Press("Add Quotes Asset"); }
 
-    [UnityTest]
-    public IEnumerator ShowImportantMessage() {
+    [UnityTest] public IEnumerator ShowImportantMessage() {
       yield return Press("Show Important Message");
       yield return new WaitForSeconds(0.1f);
 
@@ -72,8 +67,7 @@ namespace Askowl {
       Assert.AreEqual("A special message injected into the stream", text);
     }
 
-    [UnityTest]
-    public IEnumerator RtfFormatting() { yield return Press("RTF Formatting"); }
+    [UnityTest] public IEnumerator RtfFormatting() { yield return Press("RTF Formatting"); }
   }
 }
 #endif

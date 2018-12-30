@@ -1,22 +1,19 @@
-﻿namespace Askowl {
-  using System.Collections;
-  using UnityEngine;
-  using UnityEngine.UI;
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
+namespace Askowl {
   public class Marquee : MonoBehaviour {
     [SerializeField] private int charactersPerSecond = 20;
     [SerializeField] private int repeats             = 0;
 
-    public int CharactersPerSecond {
-      get { return charactersPerSecond; }
-      set { charactersPerSecond = value; }
-    }
+    public int CharactersPerSecond { get { return charactersPerSecond; } set { charactersPerSecond = value; } }
 
     private Scroller scroller;
     private int      repeat;
     private Text     content;
 
-    // Use this for initialization
+    /// Use this for initialization
     protected internal virtual void Start() {
       RectTransform viewport = GetComponent<RectTransform>();
       content = GetComponentInChildren<Text>();
@@ -26,6 +23,7 @@
       };
     }
 
+    /// Stop scrolling
     protected internal virtual void OnDisable() {
       scroller.Reset();
       repeat = 0;
@@ -59,7 +57,18 @@
       } while (scroller.Step(pixelsPerSecond * Time.fixedUnscaledDeltaTime) || (--repeat > 0));
     }
 
-    public Coroutine Show(string text) {
+    /// <a href=""></a> //#TBD#//
+    public void Show(string text) {
+      if (string.IsNullOrEmpty(text)) return;
+      if (firstShow) {
+        firstShow  = false;
+        repeatOnce = (fiber) => repeat = 1;
+      }
+
+      Fiber.Start
+           .Begin.BreakIf(repeat == 0).Do(repeatOnce).WaitFor(displayComplete).End
+           .Finish();
+
       try {
         return StartCoroutine(Displaying(text));
       } catch {
@@ -67,6 +76,9 @@
         return null;
       }
     }
+    private          Fiber.Action repeatOnce;
+    private          Boolean      firstShow       = true;
+    private readonly Emitter      displayComplete = Emitter.Instance;
 
     // ReSharper disable once MemberCanBePrivate.Global
     public IEnumerator Hide() {
