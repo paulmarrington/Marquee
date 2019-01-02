@@ -1,12 +1,11 @@
 ﻿using System;
 using CustomAsset.Constant;
+using UnityEngine;
 
 // ReSharper disable MissingXmlDoc
 
 #if Marquee && UNITY_EDITOR
 namespace Askowl {
-  using UnityEngine;
-
   public sealed class TickerTapeExamples : MonoBehaviour {
     [SerializeField] private Tickertape tickertape = default;
 
@@ -38,7 +37,7 @@ namespace Askowl {
 
     public void ClearQuotesButton() => CheckCounts(() => tickertape.Clear());
 
-    public void ShowSpecialButton() => tickertape.Show("A special message injected into the stream");
+    public void ShowSpecialButton() => tickertape.NextMessage("A special message injected into the stream");
 
     public void FormattingButton() {
       string input  = "body (attribution text)";

@@ -11,7 +11,7 @@ namespace Askowl {
     public int CharactersPerSecond { get => charactersPerSecond; set => charactersPerSecond = value; }
 
     private Text     content;
-    private Fiber    display, hidden;
+    private Fiber    display;
     private int      repeat;
     private Scroller scroller;
     private string   textToDisplay;
@@ -21,6 +21,10 @@ namespace Askowl {
       float pixelsPerSecond = 0;
 
       void prepare(Fiber fiber) {
+        if (string.IsNullOrEmpty(textToDisplay)) {
+          fiber.Break();
+          return;
+        }
         repeat                    = repeats + 1;
         content.text              = textToDisplay;
         content.resizeTextMaxSize = content.cachedTextGenerator.fontSizeUsedForBestFit;
@@ -39,15 +43,11 @@ namespace Askowl {
       }
 
       display = Fiber.Instance.Do(prepare).Begin.Begin.Do(step).Again.Until(_ => --repeat <= 0);
-      hidden  = Fiber.Instance.If(_ => display.Running).Do(_ => repeat = 1).WaitFor(display.OnComplete).Then;
     }
 
-    private void OnDestroy() {
-      hidden.Dispose();
-      display.Dispose();
-    }
+    private void OnDestroy() => display.Dispose();
 
-    /// Use this for initialization
+    /// Use this for initialization - specifically to prepare the scroller
     protected internal virtual void Start() {
       RectTransform viewport = GetComponent<RectTransform>();
       content = GetComponentInChildren<Text>();
@@ -69,7 +69,10 @@ namespace Askowl {
       if (string.IsNullOrEmpty(text)) return display;
       textToDisplay = text;
       repeat        = 0;
-      return display.WaitFor(hidden).Go();
+      return display.Go();
     }
+
+    /// <a href=""></a> //#TBD#//
+    public bool Displaying => display.Running;
   }
 }

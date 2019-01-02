@@ -12,6 +12,7 @@ namespace Askowl {
     [SerializeField] private Quotes[] quotes              = default;
 
     private List<Quotes> allQuotes;
+    private Fifo<string> texts = Fifo<string>.Instance;
 
     /// <a href=""></a> //#TBD#//
     public int[] Counts => allQuotes.ConvertAll(q => q.Count).ToArray();
@@ -23,9 +24,10 @@ namespace Askowl {
 
       foreach (Quotes quote in quotes) Add(quote);
 
+      string pick() => texts.Pop() ?? allQuotes[Random.Range(0, allQuotes.Count)].Pick();
+
       showFiber = Fiber.Instance.Begin.If(_ => allQuotes.Count > 0)
-                       .WaitFor(_ => Show(allQuotes[Random.Range(0, allQuotes.Count)].Pick()))
-                       .Then.WaitFor(secondsBetweenFeeds).Again;
+                       .WaitFor(_ => Show(pick())).Then.WaitFor(secondsBetweenFeeds).Again;
     }
 
     private void OnEnable() {
@@ -35,6 +37,9 @@ namespace Askowl {
     /// <a href=""></a> //#TBD#//
     public void Show() => showFiber.Exit().Go();
     private Fiber showFiber;
+
+    /// <a href=""></a> //#TBD#//
+    public void NextMessage(string text) => texts.Push(text);
 
     /// <a href=""></a> //#TBD#//
     public void Stop() => showFiber.Exit();

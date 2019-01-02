@@ -28,11 +28,13 @@ namespace Askowl {
 
     private IEnumerator PressAndDisplay(string buttonName) {
       yield return Press(buttonName);
+      yield return new WaitForSeconds(0.2f);
       yield return TextDisplaying();
     }
 
     private IEnumerator PressAndNotDisplay(string buttonName) {
       yield return Press(buttonName);
+      yield return new WaitForSeconds(0.2f);
       yield return TextDisplaying(false);
     }
 
@@ -41,7 +43,11 @@ namespace Askowl {
       yield return PressAndDisplay("Show");
     }
 
-    [UnityTest] public IEnumerator Stop() { yield return PressAndNotDisplay("Stop"); }
+    [UnityTest] public IEnumerator Stop() {
+      yield return Press("Show");
+      yield return new WaitForSeconds(0.2f);
+      yield return PressAndNotDisplay("Stop");
+    }
 
     [UnityTest] public IEnumerator Enable() {
       yield return Press("Show");
