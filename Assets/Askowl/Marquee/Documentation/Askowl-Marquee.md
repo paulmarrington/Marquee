@@ -6,6 +6,10 @@ description: Horizontal scrolling messaging display
 {:toc}
 > Read the code in the Examples Folder.
 
+# Executive Summary
+
+Tickertape is a simple Unity3D package to display a single line of text scrolling across the bottom of the game display. It is a useful technique for displaying hints, news or distractions without pausing the game. You can supply it with lists of items in the component or in one or more text files. RTF is supported as well as a simple technique to separate quotes from attributions.
+
 # Introduction
 
 A marquee is a canopy over the entrance to a theatre among other buildings. The marquee commonly displayed news about the shows.
@@ -27,9 +31,7 @@ A `Marquee` instance has one task - to scroll text from right to left across a v
     * Characters per second (defaults to 20)
     * Repeats (defaults to 0)
 
-Call `Marquee.Show(text)` and the text will be displayed next. If message queue up there is no guarantee of order that they will appear.
-
-`Show` returns a Coroutine that can be used to wait until the text is completely displayed `repeats` time.
+Call `Marquee.Show(text)` and the text will be displayed immediately. To display once the current item is finished, use `Tickertape.NextItem(text)` instead. If message queue up there is no guarantee of order that they will appear.
 
 ```c#
 IEnumerator Messages(string[] messages) {
