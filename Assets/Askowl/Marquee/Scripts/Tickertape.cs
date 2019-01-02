@@ -16,28 +16,24 @@ namespace Askowl {
     /// <a href=""></a> //#TBD#//
     public int[] Counts => allQuotes.ConvertAll(q => q.Count).ToArray();
 
-    private void Awake() {
+    /// <a href=""></a> //#TBD#// <inheritdoc />
+    protected override void Awake() {
+      base.Awake();
       allQuotes = new List<Quotes>();
 
       foreach (Quotes quote in quotes) Add(quote);
+
+      showFiber = Fiber.Instance.Begin.If(_ => allQuotes.Count > 0)
+                       .WaitFor(_ => Show(allQuotes[Random.Range(0, allQuotes.Count)].Pick()))
+                       .Then.WaitFor(secondsBetweenFeeds).Again;
     }
 
-    /// <a href=""></a> //#TBD#//
-    protected internal override void Start() {
-      base.Start();
+    private void OnEnable() {
       if (autoStart) Show();
     }
 
-    private void OnEnable() => Show();
-
     /// <a href=""></a> //#TBD#//
-    public void Show() {
-      Stop();
-      void pick(Fiber fiber) {
-        if (allQuotes.Count != 0) Show(allQuotes[Random.Range(0, allQuotes.Count)].Pick());
-      }
-      showFiber = Fiber.Start.Begin.Do(pick).WaitFor(secondsBetweenFeeds).Again;
-    }
+    public void Show() => showFiber.Exit().Go();
     private Fiber showFiber;
 
     /// <a href=""></a> //#TBD#//
