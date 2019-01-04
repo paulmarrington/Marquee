@@ -8,15 +8,15 @@ description: Horizontal scrolling messaging display
 
 # Executive Summary
 
-Tickertape is a simple Unity3D package to display a single line of text scrolling across the bottom of the game display. It is a useful technique for displaying hints, news or distractions without pausing the game. You can supply it with lists of items in the component or in one or more text files. RTF is supported as well as a simple technique to separate quotes from attributions.
+Tickertape is a simple Unity3D package to display a single line of text scrolling across the bottom of the game display. It is a useful technique for displaying hints, news or distractions without pausing the game. You can supply it with lists of items \ in one or more text files. RTF is supported as well as a simple technique to separate quotes from attributions.
 
 # Introduction
 
 A marquee is a canopy over the entrance to a theatre among other buildings. The marquee commonly displayed news about the shows.
 
-In this incarnation, a `Marquee` is a text scroller for a UI component. It is a `Scroller` (see Askowl-Lib) inside a MonoBehaviour.
+In this incarnation, a `Marquee` is a scrolling text asset for a UI component. It is a `Scroller` (see the Able package) inside a MonoBehaviour.
 
-At the highest level, `Tickertape` will take one or more text files and display lines from them randomly.
+At the highest level, `Tickertape` will take a list of items fromt he asset and one or more text files and display lines from them randomly.
 
 # Marquee
 
@@ -31,15 +31,13 @@ A `Marquee` instance has one task - to scroll text from right to left across a v
     * Characters per second (defaults to 20)
     * Repeats (defaults to 0)
 
-Call `Marquee.Show(text)` and the text will be displayed immediately. To display once the current item is finished, use `Tickertape.NextItem(text)` instead. If message queue up there is no guarantee of order that they will appear.
+Call `Marquee.Show(text)` and the text will be displayed immediately. To display once the current item is finished, use `Tickertape.NextItem(text)` instead. If message queue up there is no guarantee of order that they will appear. Use either to interrupt a stream of messages to show one of more immediate importance - such as breaking news.
 
 ```c#
-IEnumerator Messages(string[] messages) {
-  yield return marquee.Hide();
-  foreach(var message in messages) {
-    yield return marquee.Show(message);
-  }
-}
+[SerializedFiend] TickerTape tickertape = default;
+// ...
+tickertape.Show("A message that displays immediately");
+tickertape.NextImte("A message displayed after current message is done");
 ```
 
 The example also shows a use for `Hide()`. It will wait for the current text to complete, aborting any repeats. If you want the repeats to complete as well, change the `foreach` body to:

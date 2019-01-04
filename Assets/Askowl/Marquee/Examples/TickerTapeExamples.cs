@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright 2019 (C) paul@marrington.net http://www.askowl.net/unity-packages
+
+using System;
 using CustomAsset.Constant;
 using UnityEngine;
 
@@ -8,6 +10,7 @@ using UnityEngine;
 namespace Askowl {
   public sealed class TickerTapeExamples : MonoBehaviour {
     [SerializeField] private Tickertape tickertape = default;
+    [SerializeField] private Marquee    marquee    = default;
 
     [SerializeField] private Quotes andMoreQuotes = default;
 
@@ -15,9 +18,9 @@ namespace Askowl {
 
     public void StopButton() => tickertape.Stop();
 
-    public void OnDisableButton() => tickertape.gameObject.SetActive(false);
+    public void OnDisableButton() => marquee.gameObject.SetActive(false);
 
-    public void OnEnableButton() => tickertape.gameObject.SetActive(true);
+    public void OnEnableButton() => marquee.gameObject.SetActive(true);
 
     private void CheckCounts(Action adder) {
       string before = Csv.ToString(tickertape.Counts);
@@ -37,7 +40,9 @@ namespace Askowl {
 
     public void ClearQuotesButton() => CheckCounts(() => tickertape.Clear());
 
-    public void ShowSpecialButton() => tickertape.NextMessage("A special message injected into the stream");
+    public void ShowSpecialButton() => tickertape.ShowNext("A special message injected into the stream");
+
+    public void ShowImmediateButton() => tickertape.ShowImmediate("Drop everything for a special message");
 
     public void FormattingButton() {
       string input  = "body (attribution text)";

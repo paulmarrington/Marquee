@@ -1,36 +1,41 @@
-﻿// Copyright 2018 (C) paul@marrington.net http://www.askowl.net/unity-packages
+﻿// Copyright 2018,19 (C) paul@marrington.net http://www.askowl.net/unity-packages
 
+using System;
 using System.Collections.Generic;
+using CustomAsset;
 using CustomAsset.Constant;
+using CustomAsset.Mutable;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using String = CustomAsset.Mutable.String;
 
 namespace Askowl {
   /// <a href=""></a> //#TBD#//
-  public sealed class Tickertape : Marquee {
-    [SerializeField] private bool     autoStart           = true;
-    [SerializeField] private float    secondsBetweenFeeds = 5;
-    [SerializeField] private Quotes[] quotes              = default;
+  [CreateAssetMenu(menuName = "Managers/Tickertape"), Serializable]
+  public sealed class Tickertape : Manager {
+    [SerializeField] private bool    autoStart           = true;
+    [SerializeField] private float   secondsBetweenFeeds = 5;
+    [SerializeField] private Quotes  quotes              = default;
+    [SerializeField] private String  showing             = default;
+    [SerializeField] private Trigger showingComplete     = default;
 
-    private List<Quotes> allQuotes;
-    private Fifo<string> texts = Fifo<string>.Instance;
+    private readonly Fifo<string> texts = Fifo<string>.Instance;
+    private          List<Quotes> allQuotes;
+    private readonly Map          loadedQuotes = new Map();
 
     /// <a href=""></a> //#TBD#//
     public int[] Counts => allQuotes.ConvertAll(q => q.Count).ToArray();
 
-    /// <a href=""></a> //#TBD#// <inheritdoc />
-    protected override void Awake() {
-      base.Awake();
+    protected override void Initialise() {
+      base.Initialise();
       allQuotes = new List<Quotes>();
-
-      foreach (Quotes quote in quotes) Add(quote);
+      Add(quotes);
 
       string pick() => texts.Pop() ?? allQuotes[Random.Range(0, allQuotes.Count)].Pick();
 
       showFiber = Fiber.Instance.Begin.If(_ => allQuotes.Count > 0)
-                       .WaitFor(_ => Show(pick())).Then.WaitFor(secondsBetweenFeeds).Again;
-    }
-
-    private void OnEnable() {
+                       .Do(_ => showing.Value = pick()).WaitFor(showingComplete.Emitter)
+                       .Then.WaitFor(secondsBetweenFeeds).Again;
       if (autoStart) Show();
     }
 
@@ -39,7 +44,10 @@ namespace Askowl {
     private Fiber showFiber;
 
     /// <a href=""></a> //#TBD#//
-    public void NextMessage(string text) => texts.Push(text);
+    public void ShowNext(string text) => texts.Push(text);
+
+    /// <a href=""></a> //#TBD#//
+    public void ShowImmediate(string text) => showing.Value = text;
 
     /// <a href=""></a> //#TBD#//
     public void Stop() => showFiber.Exit();
@@ -61,7 +69,5 @@ namespace Askowl {
       allQuotes.Clear();
       return this;
     }
-
-    private readonly Map loadedQuotes = new Map();
   }
 }

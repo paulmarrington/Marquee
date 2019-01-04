@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe7f5820b64514b2080fc22e130e8024, type: 3}
+  m_Name: Contents
+  m_EditorClassIdentifier: 
+  description: 'Contents to be displayed on the marquee when
+
+    it is emabled. Update to match your requirements.'
+  value:
+    elements:
+    - Marquee contents can be stored directly in the custom asset
+    - Marquee contents can be stored in one or more text files
+    cycle: 0
+    exhaustiveBelow: 20
+    quoteFiles:
+    - {fileID: 4900000, guid: 57420b10043f14b2696de3e8318161e8, type: 3}

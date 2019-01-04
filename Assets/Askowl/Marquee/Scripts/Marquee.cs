@@ -1,14 +1,15 @@
-﻿using UnityEngine;
+﻿// Copyright 2018,19 (C) paul@marrington.net http://www.askowl.net/unity-packages
+using CustomAsset.Mutable;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Askowl {
-  /// <a href=""></a> //#TBD#//
+  /// <a href=""></a> //#TBD#// <inheritdoc/>
   public class Marquee : MonoBehaviour {
-    [SerializeField] private int charactersPerSecond = 20;
-    [SerializeField] private int repeats             = 0;
-
-    /// <a href=""></a> //#TBD#//
-    public int CharactersPerSecond { get => charactersPerSecond; set => charactersPerSecond = value; }
+    [SerializeField] private Integer charactersPerSecond = default;
+    [SerializeField] private Integer repeats             = default;
+    [SerializeField] private String  showing             = default;
+    [SerializeField] private Trigger showingComplete     = default;
 
     private Text     content;
     private Fiber    display;
@@ -16,8 +17,17 @@ namespace Askowl {
     private Scroller scroller;
     private string   textToDisplay;
 
-    /// <a href=""></a> //#TBD#//
-    protected virtual void Awake() {
+    /// hook into emitters for displaying text and recording completion then prepare the visual
+    protected void Awake() {
+      void show() {
+        var text = showing.Value;
+        if (string.IsNullOrEmpty(text)) return;
+        textToDisplay = text;
+        repeat        = 0;
+        display.Go();
+      }
+      showing.Emitter.Subscribe(show);
+
       float pixelsPerSecond = 0;
 
       void prepare(Fiber fiber) {
@@ -28,11 +38,11 @@ namespace Askowl {
         repeat                    = repeats + 1;
         content.text              = textToDisplay;
         content.resizeTextMaxSize = content.cachedTextGenerator.fontSizeUsedForBestFit;
-        content.rectTransform.SetSizeWithCurrentAnchors(
-          axis: RectTransform.Axis.Horizontal, size: content.preferredWidth);
+        var rect = content.rectTransform;
+        rect.SetSizeWithCurrentAnchors(axis: RectTransform.Axis.Horizontal, size: content.preferredWidth);
         scroller.Reset();
         Vector3[] corners = new Vector3[4];
-        content.rectTransform.GetWorldCorners(corners);
+        rect.GetWorldCorners(corners);
         float pixelsWide         = corners[2].x - corners[0].x;
         float pixelsPerCharacter = (pixelsWide / textToDisplay.Length);
         pixelsPerSecond = charactersPerSecond * pixelsPerCharacter;
@@ -43,12 +53,13 @@ namespace Askowl {
       }
 
       display = Fiber.Instance.Do(prepare).Begin.Begin.Do(step).Again.Until(_ => --repeat <= 0);
+      display.OnComplete.Subscribe(() => showingComplete.Fire());
     }
 
     private void OnDestroy() => display.Dispose();
 
     /// Use this for initialization - specifically to prepare the scroller
-    protected internal virtual void Start() {
+    protected internal void Start() {
       RectTransform viewport = GetComponent<RectTransform>();
       content = GetComponentInChildren<Text>();
 
@@ -58,21 +69,10 @@ namespace Askowl {
     }
 
     /// Stop scrolling
-    protected internal virtual void OnDisable() {
+    protected internal void OnDisable() {
       repeat = 0;
       scroller.Reset();
       content.text = null;
     }
-
-    /// <a href=""></a> //#TBD#//
-    public Fiber Show(string text) {
-      if (string.IsNullOrEmpty(text)) return display;
-      textToDisplay = text;
-      repeat        = 0;
-      return display.Go();
-    }
-
-    /// <a href=""></a> //#TBD#//
-    public bool Displaying => display.Running;
   }
 }
