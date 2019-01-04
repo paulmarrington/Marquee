@@ -8,7 +8,7 @@ description: Horizontal scrolling messaging display
 
 # Executive Summary
 
-Tickertape is a simple Unity3D package to display a single line of text scrolling across the bottom of the game display. It is a useful technique for displaying hints, news or distractions without pausing the game. You can supply it with lists of items \ in one or more text files. RTF is supported as well as a simple technique to separate quotes from attributions.
+Marquee is a simple Unity3D package to display a single line of text scrolling across the bottom of the game display. It is a useful technique for displaying hints, news or distractions without pausing the game. You can supply it with lists of items in one or more text files. RTF is supported as well as a simple technique to separate quotes from attributions.
 
 # Introduction
 
@@ -16,7 +16,23 @@ A marquee is a canopy over the entrance to a theatre among other buildings. The 
 
 In this incarnation, a `Marquee` is a scrolling text asset for a UI component. It is a `Scroller` (see the Able package) inside a MonoBehaviour.
 
-At the highest level, `Tickertape` will take a list of items fromt he asset and one or more text files and display lines from them randomly.
+`Tickertape` is a manager custom asset that serves items to the marquee It takes a list of items from the asset and one or more text files and display lines from them randomly. There are overrides for important and immediate messages.
+
+# Installation
+
+Given that most games and apps only have one Marquee, it is probably easiest to take a copy of the ***Assets/Askowl/Marquee*** directory and modify the custom assets to suite your requirements. Simply drag the Marquee prefab into a canvas in your hierarchy.
+
+<img src="Hierarchy.png" width="50%" alt="Marquee prefab in hierarchy">
+
+Also drop the ***Managers*** prefab into your project or update your existing ***Managers*** instance adding the ***Tickertape*** manager.
+
+<img src="Component - Managers.png" width="100%" alt="Custom Asset Manager Component">
+
+Tuning is now done by adjusting contents in custom assets, starting with ***Tickertape***.
+
+<img src="Custom Asset - Tickertape.png" alt="Tickertape Manager Custom Asset">
+
+
 
 # Marquee
 
