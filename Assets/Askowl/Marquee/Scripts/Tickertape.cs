@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 using String = CustomAsset.Mutable.String;
 
 namespace Askowl {
-  /// <a href=""></a> //#TBD#//
+  /// <a href="http://bit.ly/2R8doWe">Manager Custom Asset to serve messages to the marquee</a>
   [CreateAssetMenu(menuName = "Managers/Tickertape"), Serializable]
   public sealed class Tickertape : Manager {
     [SerializeField] private bool    autoStart           = true;
@@ -23,7 +23,7 @@ namespace Askowl {
     private          List<Quotes> allQuotes;
     private readonly Map          loadedQuotes = new Map();
 
-    /// <a href=""></a> //#TBD#//
+    /// <a href="http://bit.ly/2R8doWe">Combined total of all messages that can be served</a>
     public int[] Counts => allQuotes.ConvertAll(q => q.Count).ToArray();
 
     protected override void Initialise() {
@@ -39,20 +39,20 @@ namespace Askowl {
       if (autoStart) Show();
     }
 
-    /// <a href=""></a> //#TBD#//
+    /// <a href="http://bit.ly/2RuJR8B">Start showing messages from the currently loaded Quote custom assets</a>
     public void Show() => showFiber.Exit().Go();
     private Fiber showFiber;
 
-    /// <a href=""></a> //#TBD#//
+    /// <a href="http://bit.ly/2RcaBew">Inject a message to be displayed after the current one has finished</a>
     public void ShowNext(string text) => texts.Push(text);
 
-    /// <a href=""></a> //#TBD#//
+    /// <a href="http://bit.ly/2R9IJb5">Inject a message to show right now - removing any half-finished message first</a>
     public void ShowImmediate(string text) => showing.Value = text;
 
-    /// <a href=""></a> //#TBD#//
+    /// <a href="http://bit.ly/2RvUjg9">Stop displaying messages after the current one is done</a>
     public void Stop() => showFiber.Exit();
 
-    /// <a href=""></a> //#TBD#//
+    /// <a href="http://bit.ly/2REqmux">Add more messages contained in a Quote custom asset</a>
     // ReSharper disable once UnusedMethodReturnValue.Global
     public Tickertape Add(Quotes moreQuotes) {
       if ((moreQuotes.Count == 0) || loadedQuotes[moreQuotes.name].Found) return this;
@@ -62,7 +62,7 @@ namespace Askowl {
       return this;
     }
 
-    /// <a href=""></a> //#TBD#//
+    /// <a href="http://bit.ly/2GVrcP7">Remove all messages from the list to display</a>
     // ReSharper disable once UnusedMethodReturnValue.Global
     public Tickertape Clear() {
       loadedQuotes.Clear();

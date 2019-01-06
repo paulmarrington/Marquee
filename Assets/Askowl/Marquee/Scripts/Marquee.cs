@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Askowl {
-  /// <a href=""></a> //#TBD#// <inheritdoc/>
+  /// <a href="http://bit.ly/2CSCmQR">Visual object to display a message scrolling across the screen</a><inheritdoc/>
   public class Marquee : MonoBehaviour {
     [SerializeField] private Integer charactersPerSecond = default;
     [SerializeField] private Integer repeats             = default;

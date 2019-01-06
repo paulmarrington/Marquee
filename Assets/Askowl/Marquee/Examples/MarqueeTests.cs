@@ -11,13 +11,13 @@ using UnityEngine.UI;
 // ReSharper disable MissingXmlDoc
 
 namespace Askowl {
-  public class TickerTapeTests : PlayModeTests {
+  public class MarqueeTests : PlayModeTests {
     private readonly Integer charactersPerSecond = Manager.Load<Integer>("Askowl/Marquee/Characters per second.asset");
     private          int     cps;
     private          bool    sceneLoaded;
 
     private IEnumerator Setup() {
-      if (!sceneLoaded) yield return LoadScene("TickerTape Example");
+      if (!sceneLoaded) yield return LoadScene("Marquee Example");
       sceneLoaded = true;
       yield return PushButton("Show");
       yield return new WaitForSeconds(0.2f);
@@ -29,14 +29,6 @@ namespace Askowl {
 
     private IEnumerator TextDisplaying(bool visible = true) {
       yield return IsDisplayingInUi("Canvas/Marquee/Text", visible);
-    }
-
-    private IEnumerator PressAndDisplay(string buttonName) {
-      yield return new WaitForSeconds(0.1f);
-      yield return PushButton(buttonName);
-      yield return new WaitForSeconds(0.2f);
-      yield return new WaitForSeconds(0.2f);
-      yield return TextDisplaying();
     }
 
     private IEnumerator PressAndNotDisplay(string buttonName) {
@@ -68,23 +60,6 @@ namespace Askowl {
       yield return PushButton("Add Quotes Asset");
       TearDown();
     }
-
-//    [UnityTest] public IEnumerator ShowImportantMessage() {
-//      yield return Setup();
-//      yield return PushButton("Show Important Message");
-//      yield return new WaitForSeconds(0.2f);
-//
-//      Text component = Components.Find<Text>("Marquee/Text");
-//      bool ok        = false;
-//      for (int i = 0; (i < 30) && !ok; i++) {
-//        yield return new WaitForSeconds(0.1f);
-//        string text = (component != null) ? component.text : "";
-//        ok = text == "A special message injected into the stream";
-//        Debug.Log($"ShowImportantMessage {ok} '{text}'"); //#DM#//
-//      }
-//      Assert.IsTrue(ok);
-//      TearDown();
-//    }
 
     [UnityTest] public IEnumerator ShowImmediateMessage() {
       yield return Setup();

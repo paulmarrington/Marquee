@@ -8,7 +8,7 @@ using UnityEngine;
 
 #if Marquee && UNITY_EDITOR
 namespace Askowl {
-  public sealed class TickerTapeExamples : MonoBehaviour {
+  public sealed class MarqueeExamples : MonoBehaviour {
     [SerializeField] private Tickertape tickertape = default;
     [SerializeField] private Marquee    marquee    = default;
 

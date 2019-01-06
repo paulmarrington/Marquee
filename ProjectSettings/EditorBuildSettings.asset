@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Askowl/Marquee/Examples/TickerTape Example.unity
+    path: Assets/Askowl/Marquee/Examples/Marquee Example.unity
     guid: 064d4d565a2094ea5b7c3be7d12e737f
   m_configObjects: {}
