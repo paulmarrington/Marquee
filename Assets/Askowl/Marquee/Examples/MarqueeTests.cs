@@ -1,9 +1,10 @@
 ﻿// Copyright 2018,19 (C) paul@marrington.net http://www.askowl.net/unity-packages
-#if Marquee && UNITY_EDITOR
+#if AskowlTests
 using System.Collections;
 using CustomAsset;
 using CustomAsset.Mutable;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -16,13 +17,19 @@ namespace Askowl {
     private          int     cps;
     private          bool    sceneLoaded;
 
+    private static string sceneName = "Marquee Example";
+    #if UNITY_EDITOR
+    [InitializeOnLoadMethod] private static void AddSceneToBuildSettings() => AddSceneToBuildSettings(sceneName);
+    #endif
+
     private IEnumerator Setup() {
-      if (!sceneLoaded) yield return LoadScene("Marquee Example");
-      sceneLoaded = true;
-      yield return PushButton("Show");
-      yield return new WaitForSeconds(0.2f);
       cps                       = charactersPerSecond;
       charactersPerSecond.Value = 100;
+      if (!sceneLoaded) yield return LoadScene(sceneName);
+      sceneLoaded = true;
+      yield return new WaitForSeconds(0.2f);
+      yield return PushButton("Show Immediate");
+      yield return new WaitForSeconds(0.2f);
     }
 
     private void TearDown() => charactersPerSecond.Value = cps;
@@ -33,7 +40,7 @@ namespace Askowl {
 
     private IEnumerator PressAndNotDisplay(string buttonName) {
       yield return PushButton(buttonName);
-      yield return new WaitForSeconds(0.2f);
+      yield return new WaitForSeconds(0.3f);
       yield return TextDisplaying(false);
     }
 

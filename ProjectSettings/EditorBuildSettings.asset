@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Askowl/Marquee/Examples/Marquee Example.unity
     guid: 064d4d565a2094ea5b7c3be7d12e737f
+  - enabled: 1
+    path: Assets/Askowl/CustomAssets/Examples/Askowl-CustomAssets-Examples.unity
+    guid: 565df541fc0804d909862529550e5bde
+  - enabled: 1
+    path: Assets/Askowl/CustomAssets/Examples/Health/Health.unity
+    guid: bb74c70c26b7a47659e54099ac7717a6
+  - enabled: 1
+    path: Assets/Askowl/Able/Examples/Askowl-Able-Examples.unity
+    guid: 3e5c4eb90e6424231961f278916b4dde
   m_configObjects: {}

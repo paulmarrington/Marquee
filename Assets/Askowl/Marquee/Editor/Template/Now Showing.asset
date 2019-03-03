@@ -17,5 +17,5 @@ MonoBehaviour:
     enabled: 0
     secondsDelayAtStart: 5
     updateIntervalInSeconds: 1
-  value: 
+  value: A special message injected into the stream
   persistent: 0

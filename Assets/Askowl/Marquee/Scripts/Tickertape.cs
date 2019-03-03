@@ -33,9 +33,12 @@ namespace Askowl {
 
       string pick() => texts.Pop() ?? allQuotes[Random.Range(0, allQuotes.Count)].Pick();
 
-      showFiber = Fiber.Instance.Begin.If(_ => allQuotes.Count > 0)
-                       .Do(_ => showing.Value = pick()).WaitFor(showingComplete.Emitter)
+      showFiber = Fiber.Instance.Begin
+                       .If(_ => (allQuotes.Count > 0) || (texts.Count > 0))
+                       .Do(_ => showing.Value = pick())
+                       .WaitFor(showingComplete.Emitter)
                        .Then.WaitFor(secondsBetweenFeeds).Again;
+      showFiber.Debugging = true;
       if (autoStart) Show();
     }
 

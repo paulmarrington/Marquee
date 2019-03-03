@@ -6,7 +6,7 @@ using UnityEngine;
 
 // ReSharper disable MissingXmlDoc
 
-#if Marquee && UNITY_EDITOR
+#if AskowlTests
 namespace Askowl {
   public sealed class MarqueeExamples : MonoBehaviour {
     [SerializeField] private Tickertape tickertape = default;

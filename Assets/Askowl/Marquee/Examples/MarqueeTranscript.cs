@@ -15,10 +15,10 @@ namespace Askowl.Transcripts {
     [SerializeField] private Float health = default;
 
     // We can subscribe to changes in health
-    private void Awake() => health.Emitter.Subscribe(HealthMessages);
+    private void Awake() => health.Emitter.Listen(HealthMessages);
 
     // and display a message if anything important occurs.
-    private void HealthMessages() {
+    private void HealthMessages(Emitter emitter) {
       if (health < 0.1) tickertape.ShowImmediate("You are nearly dead! Drink a potion or run away");
     }
   }

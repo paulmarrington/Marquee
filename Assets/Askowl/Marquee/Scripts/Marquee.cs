@@ -19,14 +19,13 @@ namespace Askowl {
 
     /// hook into emitters for displaying text and recording completion then prepare the visual
     protected void Awake() {
-      void show() {
+      void show(Emitter emitter) {
         var text = showing.Value;
         if (string.IsNullOrEmpty(text)) return;
         textToDisplay = text;
         repeat        = 0;
         display.Go();
       }
-      showing.Emitter.Subscribe(show);
 
       float pixelsPerSecond = 0;
 
@@ -53,7 +52,9 @@ namespace Askowl {
       }
 
       display = Fiber.Instance.Do(prepare).Begin.Begin.Do(step).Again.Until(_ => --repeat <= 0);
-      display.OnComplete.Subscribe(() => showingComplete.Fire());
+      display.OnComplete.Listen(_ => showingComplete.Fire());
+      showing.Emitter.Listen(show);
+      if (showing.Emitter.Firings > 0) show(showing.Emitter);
     }
 
     private void OnDestroy() => display.Dispose();
