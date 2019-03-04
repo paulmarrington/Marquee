@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MarqueeTemplatePath
   m_EditorClassIdentifier: 
   description: 
-  value: Assets/Askowl/Marquee/Template
+  value: Assets/Askowl/Marquee/Editor/Template
