@@ -3,6 +3,7 @@
 using CustomAsset.Constant;
 using CustomAsset.Mutable;
 using UnityEditor;
+using UnityEngine;
 using Integer = CustomAsset.Mutable.Integer;
 using String = CustomAsset.Mutable.String;
 
@@ -14,21 +15,27 @@ namespace Askowl {
 
     protected override void OnScriptReload() {
       CreateAssetDictionary(
-        ("TickertapeManager", typeof(Tickertape))
+        ("Tickertape Manager", typeof(Tickertape))
       , ("Characters per second", typeof(Integer))
       , ("Contents", typeof(Quotes))
       , ("Display complete", typeof(Trigger))
       , ("Now showing", typeof(String))
-      , ("Repeats per message", typeof(Integer)));
+      , ("Repeats per message", typeof(Integer))
+      , ("Marquee Canvas", typeof(Marquee))
+      , ("quotes", typeof(TextAsset)));
 
-      SetField("TickertapeManager", "quotes",          Asset("Contents"));
-      SetField("TickertapeManager", "showing",         Asset("Now showing"));
-      SetField("TickertapeManager", "showingComplete", Asset("Display complete"));
+      SetField("Tickertape Manager", "quotes",          Asset("Contents"));
+      SetField("Tickertape Manager", "showing",         Asset("Now showing"));
+      SetField("Tickertape Manager", "showingComplete", Asset("Display complete"));
 
-      SetField("Marquee", "charactersPerSecond", Asset("Characters per second"));
-      SetField("Marquee", "repeats",             Asset("Repeats per message"));
-      SetField("Marquee", "showing",             Asset("Now showing"));
-      SetField("Marquee", "showingComplete",     Asset("Display complete"));
+      SetField("Marquee Canvas", "charactersPerSecond", Asset("Characters per second"));
+      SetField("Marquee Canvas", "repeats",             Asset("Repeats per message"));
+      SetField("Marquee Canvas", "showing",             Asset("Now showing"));
+      SetField("Marquee Canvas", "showingComplete",     Asset("Display complete"));
+
+      InsertIntoArrayField("Contents", "quoteFiles", Asset("quotes"));
+
+      Field("Characters per second", "value").intValue = 16;
     }
   }
 }

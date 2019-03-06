@@ -14,7 +14,7 @@ namespace Askowl {
   [CreateAssetMenu(menuName = "Managers/Tickertape"), Serializable]
   public sealed class Tickertape : Manager {
     [SerializeField] private bool    autoStart           = true;
-    [SerializeField] private float   secondsBetweenFeeds = 5;
+    [SerializeField] private float   secondsBetweenFeeds = 0.2f;
     [SerializeField] private Quotes  quotes              = default;
     [SerializeField] private String  showing             = default;
     [SerializeField] private Trigger showingComplete     = default;

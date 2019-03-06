@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd5873c9ff8184fc0b6504737e04702b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tickertape: {fileID: 11400000, guid: 58fa98a00b00d4930b00f8520e03f526, type: 2}
+  tickertape: {fileID: 0}
   marquee: {fileID: 111993323}
   andMoreQuotes: {fileID: 11400000, guid: f9d71c6289e1c4faa9fa0d29278a327e, type: 2}
 --- !u!1 &788217772
@@ -1362,7 +1362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managers:
-  - {fileID: 11400000, guid: 58fa98a00b00d4930b00f8520e03f526, type: 2}
+  - {fileID: 0}
 --- !u!4 &1671890896
 Transform:
   m_ObjectHideFlags: 0
@@ -2019,6 +2019,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Marquee Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785538546792917621, guid: bd21c0c0861c84576870673e3451c244,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5785538546792917617, guid: bd21c0c0861c84576870673e3451c244,
         type: 3}
