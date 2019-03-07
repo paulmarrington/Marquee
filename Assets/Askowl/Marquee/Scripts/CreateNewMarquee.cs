@@ -8,8 +8,8 @@ using Integer = CustomAsset.Mutable.Integer;
 using String = CustomAsset.Mutable.String;
 
 namespace Askowl {
-  /// <a href=""></a> //#TBD#//
-  public class CreateNewMarquee : AssetBuilder {
+  /// Wizard to create a new Marquee in the current scene
+  public class CreateNewMarquee : AssetWizard {
     [MenuItem("Assets/Create/Marquee")] private static void CreateMarquee() =>
       new CreateNewMarquee().CreateAssets("Marquee");
 
@@ -33,9 +33,9 @@ namespace Askowl {
       SetField("Marquee Canvas", "showing",             Asset("Now showing"));
       SetField("Marquee Canvas", "showingComplete",     Asset("Display complete"));
 
-      InsertIntoArrayField("Contents", "quoteFiles", Asset("quotes"));
+      Field("Characters per second").intValue = 16;
 
-      Field("Characters per second", "value").intValue = 16;
+      SetActiveObject("Contents");
     }
   }
 }

@@ -22,17 +22,17 @@ In this incarnation, a `Marquee` is a scrolling text asset for a UI component. I
 
 <img src="Screen Shot.png" width="100%" alt="Marquee in action">
 
+# Videos
+
+* [How to Build a Marquee](https://youtu.be/TVsNg6COdeI)
+
 # Installation
 
-Given that most games and apps only have one Marquee, it is probably easiest to take a copy of the ***Assets/Askowl/Marquee*** directory and modify the custom assets to suit your requirements. Merely drag the Marquee prefab into a canvas in your hierarchy.
+Askowl Marquee comes with a wizard. It is in the ***Asset // Create*** menu, adding it to the current scene. The only additional work you will need to do is to add static messages and code to inject dynamic ones.
 
-<img src="Hierarchy.png" width="50%" alt="Marquee prefab in hierarchy">
+The wizard adds ***Marquee Canvas*** to the current scene. Change location, size and text look. Switch to TextMesh Pro by replacing the text component. Leave the `Textual` element as it acts as a universal communicator.
 
-Also drop the ***Managers*** prefab into your project or update your existing ***Managers*** instance adding the ***Tickertape*** manager.
-
-<img src="Component - Managers.png" width="100%" alt="Custom Asset Manager Component">
-
-Tune by adjusting contents in custom assets, starting with ***Tickertape***.
+Tune by adjusting contents in custom assets, starting with ***Tickertape***. Most importantly, add quotes either directly or by `TextAsset`. If you only want to show dynamic content, such as a news feed, there may be no need for any static content.
 
  <img src="Custom Asset - Tickertape.png" alt="Tickertape Manager Custom Asset">
 
@@ -57,6 +57,14 @@ becomes
 
 ## Now Showing
 ***Now Showing*** Is a string custom asset containing the text currently displayed. A change causes a restart with the words appearing on the right.
+
+``` c#
+// Set in the inspector to the Marquee "Now Showing" String CustomAsset.
+[SerializeField] private String showing = default;
+//...
+void News(string text) => showing.Value = text;
+```
+
 
 ## Showing Complete
 A trigger custom asset that fires when the current text has left the screen.  Use with ***Now Showing*** to drive the Marquee directly for more control of what is displayed when.

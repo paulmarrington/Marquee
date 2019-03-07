@@ -258,9 +258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd5873c9ff8184fc0b6504737e04702b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tickertape: {fileID: 0}
+  tickertape: {fileID: 11400000, guid: 36063024977e24033a107a50d7b3d1eb, type: 2}
   marquee: {fileID: 111993323}
   andMoreQuotes: {fileID: 11400000, guid: f9d71c6289e1c4faa9fa0d29278a327e, type: 2}
+  showing: {fileID: 11400000, guid: 43ac4708f9cca481787003e84c84e0e7, type: 2}
 --- !u!1 &788217772
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,7 +1342,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1671890896}
-  - component: {fileID: 1671890895}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1349,20 +1349,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1671890895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671890894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 326731ed953c048018c2104716ef51aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  managers:
-  - {fileID: 0}
 --- !u!4 &1671890896
 Transform:
   m_ObjectHideFlags: 0
@@ -2025,6 +2011,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5785538546152277684, guid: bd21c0c0861c84576870673e3451c244,
+        type: 3}
+      propertyPath: charactersPerSecond
+      value: 
+      objectReference: {fileID: 11400000, guid: 4e474ea567d50462a8b4df47f0719dea,
+        type: 2}
+    - target: {fileID: 5785538546152277684, guid: bd21c0c0861c84576870673e3451c244,
+        type: 3}
+      propertyPath: repeats
+      value: 
+      objectReference: {fileID: 11400000, guid: 2cd4cf89d0dd44b8cb3ea086520a8134,
+        type: 2}
+    - target: {fileID: 5785538546152277684, guid: bd21c0c0861c84576870673e3451c244,
+        type: 3}
+      propertyPath: showing
+      value: 
+      objectReference: {fileID: 11400000, guid: 43ac4708f9cca481787003e84c84e0e7,
+        type: 2}
+    - target: {fileID: 5785538546152277684, guid: bd21c0c0861c84576870673e3451c244,
+        type: 3}
+      propertyPath: showingComplete
+      value: 
+      objectReference: {fileID: 11400000, guid: 9f4bdd114308944ca8ea8b568680a491,
+        type: 2}
     - target: {fileID: 5785538546792917617, guid: bd21c0c0861c84576870673e3451c244,
         type: 3}
       propertyPath: m_LocalPosition.x

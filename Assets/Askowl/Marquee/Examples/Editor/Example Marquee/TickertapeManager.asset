@@ -17,6 +17,6 @@ MonoBehaviour:
     configuration.'
   autoStart: 1
   secondsBetweenFeeds: 0.2
-  quotes: {fileID: 11400000, guid: 4d553a7483476462c93fba31272abede, type: 2}
-  showing: {fileID: 11400000, guid: ff0586dc3be7049bf8f206b8484cd8ec, type: 2}
-  showingComplete: {fileID: 11400000, guid: 6945d804635b149608bdb61b4eac3f3a, type: 2}
+  quotes: {fileID: 11400000, guid: b0d0ee47b3779485587e9f326f29aa54, type: 2}
+  showing: {fileID: 11400000, guid: 43ac4708f9cca481787003e84c84e0e7, type: 2}
+  showingComplete: {fileID: 11400000, guid: 9f4bdd114308944ca8ea8b568680a491, type: 2}

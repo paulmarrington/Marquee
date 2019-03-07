@@ -3,16 +3,17 @@
 using System;
 using CustomAsset.Constant;
 using UnityEngine;
+using String = CustomAsset.Mutable.String;
 
 // ReSharper disable MissingXmlDoc
 
 #if AskowlTests
 namespace Askowl {
   public sealed class MarqueeExamples : MonoBehaviour {
-    [SerializeField] private Tickertape tickertape = default;
-    [SerializeField] private Marquee    marquee    = default;
-
-    [SerializeField] private Quotes andMoreQuotes = default;
+    [SerializeField] private Tickertape tickertape    = default;
+    [SerializeField] private Marquee    marquee       = default;
+    [SerializeField] private Quotes     andMoreQuotes = default;
+    [SerializeField] private String     showing       = default;
 
     public void ShowButton() => tickertape.Show();
 
@@ -42,7 +43,7 @@ namespace Askowl {
 
     public void ShowSpecialButton() => tickertape.ShowNext("A special message injected into the stream");
 
-    public void ShowImmediateButton() => tickertape.ShowImmediate("Drop everything for a special message");
+    public void ShowImmediateButton() => showing.Value = "Drop everything for a special message";
 
     public void FormattingButton() {
       string input  = "body (attribution text)";

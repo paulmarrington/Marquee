@@ -309,7 +309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.35, y: 0.05}
   m_AnchorMax: {x: 0.65, y: 0.45}
-  m_AnchoredPosition: {x: 555.75, y: -0.000061035156}
+  m_AnchoredPosition: {x: 555.75, y: -9}
   m_SizeDelta: {x: -85.495, y: 0.00012207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1310331501
@@ -483,7 +483,7 @@ MonoBehaviour:
   homePageUrl: http://www.askowl.net/unity-marquee
   documentationUrl: https://paulmarrington.github.io/Unity-Documentation/Marquee
   doxygenUrl: https://paulmarrington.github.io/Unity-Documentation/Marquee/Doxygen/html/annotated.html
-  videosUrl: https://www.youtube.com/playlist?list=
+  videosUrl: https://www.youtube.com/playlist?list=PLufDQjKXLJJpXirJq_oSX98eq9WnK1eIo
   supportUrl: https://www.patreon.com/paulmarrington
   exampleScene: Marquee Example
   testsAvailable: {fileID: 8790878038331515417}
